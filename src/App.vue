@@ -2,14 +2,20 @@
   <nav id="nav">
     <router-link to="/">Home</router-link>
     <router-link to="/drag">Draggable</router-link>
+    <router-link to="/dragCards">DraggableCards</router-link>
   </nav>
-  <router-view></router-view>
+  <div class="routercontainer">
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
 </script>
 
 <style>
+.routercontainer {
+  margin-top: 150px;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

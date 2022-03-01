@@ -1,44 +1,19 @@
 <template>
-  <div class="mothercontainer">
-    <div class="container">
-      <div class="card">
-        <h3 class="title">Card 1</h3>
-        <div class="bar">
-          <div class="emptybar"></div>
-          <div class="filledbar"></div>
-        </div>
-        <div class="circle">
-          <svg>
-            <circle class="stroke" cx="60" cy="60" r="50" />
-          </svg>
-        </div>
-      </div>
-      <div class="card">
-        <h3 class="title">Card 2</h3>
-        <div class="bar">
-          <div class="emptybar"></div>
-          <div class="filledbar"></div>
-        </div>
-        <div class="circle">
-          <svg>
-            <circle class="stroke" cx="60" cy="60" r="50" />
-          </svg>
-        </div>
-      </div>
-      <div class="card">
-        <h3 class="title">Card 3</h3>
-        <div class="bar">
-          <div class="emptybar"></div>
-          <div class="filledbar"></div>
-        </div>
-        <div class="circle">
-          <svg>
-            <circle class="stroke" cx="60" cy="60" r="50" />
-          </svg>
-        </div>
-      </div>
-      <div class="card">
-        <h3 class="title">Card 4</h3>
+  <div>
+    <div
+      class="container"
+      @drop="onDrop($event, 1)"
+      @dragover.prevent
+      @dragenter.prevent
+    >
+      <div
+        class="card"
+        v-for="item in listOne"
+        :key="item.title"
+        draggable="true"
+        @dragstart="startDrag($event, item)"
+      >
+        <h3 class="title">{{ item.title }}</h3>
         <div class="bar">
           <div class="emptybar"></div>
           <div class="filledbar"></div>
@@ -50,9 +25,21 @@
         </div>
       </div>
     </div>
-
-    <div class="container">
-      <span> Hello! </span>
+    <div
+      class="drop-zone"
+      @drop="onDrop($event, 2)"
+      @dragover.prevent
+      @dragenter.prevent
+    >
+      <div
+        v-for="item in listTwo"
+        :key="item.title"
+        class="drag-el"
+        draggable="true"
+        @dragstart="startDrag($event, item)"
+      >
+        {{ item.title }}
+      </div>
     </div>
   </div>
 </template>
@@ -61,17 +48,59 @@
 export default {
   data() {
     return {
-      name: "Cards",
+      items: [
+        {
+          id: 0,
+          title: "Item A",
+          list: 1,
+        },
+        {
+          id: 1,
+          title: "Item B",
+          list: 1,
+        },
+        {
+          id: 2,
+          title: "Item C",
+          list: 2,
+        },
+      ],
     };
+  },
+  computed: {
+    listOne() {
+      return this.items.filter((item) => item.list === 1);
+    },
+    listTwo() {
+      return this.items.filter((item) => item.list === 2);
+    },
+  },
+  methods: {
+    startDrag(evt, item) {
+      evt.dataTransfer.dropEffect = "move";
+      evt.dataTransfer.effectAllowed = "move";
+      evt.dataTransfer.setData("itemID", item.id);
+    },
+    onDrop(evt, list) {
+      const itemID = evt.dataTransfer.getData("itemID");
+      const item = this.items.find((item) => item.id == itemID);
+      item.list = list;
+    },
   },
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-body {
-  background-color: #100e17;
-  font-family: "Open Sans", sans-serif;
+.drop-zone {
+  background-color: #eee;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+.drag-el {
+  background-color: #fff;
+  margin-bottom: 5px;
+  padding: 5px;
 }
 .mothercontainer {
   display: flex;
