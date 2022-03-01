@@ -1,5 +1,5 @@
 # Draggable carousel cards
-![grafik](https://user-images.githubusercontent.com/13552751/156176411-43d296d9-0e6f-4d58-a5a3-a7c98a5b6479.png)
+![grafik](https://im4.ezgif.com/tmp/ezgif-4-b693b43143.gif)
 
 
 ## Project setup
