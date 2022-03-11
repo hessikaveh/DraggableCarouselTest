@@ -1,5 +1,5 @@
 # Draggable carousel cards
-![grafik](https://im4.ezgif.com/tmp/ezgif-4-b693b43143.gif)
+
 
 
 ## Project setup
